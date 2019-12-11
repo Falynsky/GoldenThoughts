@@ -1,0 +1,12 @@
+<h1>My golden thoughts!</h1>
+<ul>
+  <li *ngFor="let thought of list; let i = index">
+    <span class="text">{{thought.text}}</span>
+    <button class="delete" (click)="onDelete(i)">Remove</button>
+
+    <div class="date">added date:{{thought.date | date}}</div>
+
+  </li>
+</ul>
+<input [(ngModel)]="text">
+<button (click)="addTask()">Add</button>
