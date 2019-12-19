@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {thoughts} from './thoughts';
-import {Thought} from './thought';
+import {StorageService} from '../main.service';
 
 @Component({
   selector: 'app-list',
@@ -9,19 +8,23 @@ import {Thought} from './thought';
 })
 export class ListComponent implements OnInit {
 
+  constructor(private storageService: StorageService) {  }
+
   title = 'zajecia2';
-  list = thoughts;
+  list = this.storageService.load('kamil');
   todayDate = new Date();
-  text: '';
+  public text = 'AAA';
+
 
   addTask() {
-    this.list.push(
-      {date: this.todayDate, text: this.text}
-    );
+    this.list.push({text: this.text, date: this.todayDate});
+    this.storageService.save('kamil', this.list);
+    this.text = '';
   }
 
   onDelete(i: number) {
     this.list.splice(i, 1);
+    this.storageService.save('kamil' , this.list );
   }
 
   ngOnInit() {
